@@ -1,16 +1,20 @@
 import pytest
 import allure
+
 from locators.order_page_locators import OrderPageLocators
 from pages.main_page import MainPage
 from pages.order_page import OrderPage
-from tests.order_data import OrderData
+from utils.order_helpers import create_order_data
+
 
 class TestMakeOrder:
+
     @allure.feature('Функциональность «Заказать самокат».')
     @allure.description('Проверка полного флоу заказа самоката.')
     @allure.testcase('Вход во флоу заказа от кнопки «Заказать» топ бара.')
     @pytest.mark.parametrize("color_locator", [OrderPageLocators.BLACK_PEARL_COLOR])
-    def test_make_order_full_flow_from_top(self, order_data: OrderData, driver, color_locator):
+    def test_make_order_full_flow_from_top(self, driver, color_locator):
+        order_data = create_order_data()
         main_page = MainPage(driver)
         order_page = OrderPage(driver)
         main_page.open_page()
@@ -34,7 +38,8 @@ class TestMakeOrder:
     @allure.description('Проверка полного флоу заказа самоката.')
     @allure.testcase('Вход во флоу заказа от кнопки «Заказать» из центра страницы.')
     @pytest.mark.parametrize("color_locator", [OrderPageLocators.GRAY_HOPELESSNESS_COLOR])
-    def test_make_order_full_flow_from_home(self, order_data: OrderData, driver, color_locator):
+    def test_make_order_full_flow_from_home(self, driver, color_locator):
+        order_data = create_order_data()
         main_page = MainPage(driver)
         order_page = OrderPage(driver)
         main_page.open_page()
